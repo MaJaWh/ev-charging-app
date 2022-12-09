@@ -4,7 +4,7 @@
 [![LastCommit][commit-badge]][commit-url]
 
 <!-- PROJECT LOGO -->
-<h3 align="center">React Technical Test</h3>
+<h1 align="center">EV Charging App</h1>
 
   <p align="center">
     An app which combines 2 or more EV charging API's to give worldwide coverage or all EV charging stations 
