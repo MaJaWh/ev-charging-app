@@ -29,9 +29,29 @@
 // export default App;
 
 import React from 'react';
+import ContainerLogin from "../containers/ContainerLogin";
+import Account from "../components/Account";
+import Dashboard from './Dashboard';
+import Header from "./Header";
+import Home from "./Home";
+import LoggedInPage from "./LoggedInPage"
+import Login from "./Login";
+import Preferences from "./Preferences";
+import { BrowserRouter, Route, Routes, Router } from 'react-router-dom';
 
 function App() {
-  return <div>Hello</div>;
+  return <div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/" element={''} />
+        <Route path="/" element={''} />
+        <Route path="/" element={''} />
+        <Route path="/" element={''} />
+      </Routes>
+    </Router>
+    </div>
 }
 
 export default App;
