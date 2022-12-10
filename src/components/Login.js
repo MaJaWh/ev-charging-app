@@ -1,57 +1,47 @@
 import React from "react";
+import fakeServer from "../utils/FakeServer";
 import { useState } from "react";
-import PropTypes from "prop-types";
-
-async function loginUser(credentials) {
-  return fetch("http://localhost:8080/login", {
-    method: "POST",
-    headers: {
-      "content-Type": "application/json",
-    },
-    body: JSON.stringify(credentials),
-  }).then((data) => data.json());
-}
 
 function Login(props) {
-  const { setToken } = props;
+  const [details, setDetails] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
 
-  const [username, setUserName] = useState();
-  const [password, setPassword] = useState();
+  const [error, setError] = useState(null);
+
+  const handleChange = ({ target: { value, id } }) => {
+    setDetails((prev) => ({ ...prev, [id]: value }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const setToken = await loginUser({
-      username,
-
-      password,
-    });
-
-    setToken(setToken);
+    const res = fakeServer(details);
+    if(res.error) {
+      setError(res.error);
+    } else {
+      console.log("credentials are correct", '<-- login');
+      setError(null)
+    }
   };
 
   return (
     <div className="login-wrapper">
       <h1>Please Log In</h1>
       <form onSubmit={handleSubmit}>
-        <label>
-          <p>Username</p>
-          <input type="text" onChange={(e) => setUserName(e.target.value)} />
-        </label>
-        <label>
-          <p>Password</p>
-          <input type="text" onChange={(e) => setPassword(e.target.value)} />
-        </label>
-        <div>
-          <button type="submit">Submit</button>
-        </div>
+        <label htmlFor="username">Username</label>
+          <input id="username" onChange={handleChange} />
+          <label htmlFor="email">Email</label>
+          <input id="email" onChange={handleChange} />
+          <label htmlFor="password">Password</label>
+          <input id="password" type="password" onChange={handleChange} />
+          <button className="login__form-button" type="submit">Login</button>
+          {error && <p className="error">{error}</p>}
       </form>
     </div>
   );
 }
 
 export default Login;
-
-Login.propTypes = {
-  setToken: PropTypes.func.isRequired,
-};
